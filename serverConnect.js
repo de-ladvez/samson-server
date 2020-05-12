@@ -30,19 +30,7 @@ import mongoose from "mongoose";
 
         app.use(express.urlencoded({extended: true}));
         app.use(express.json());
-
-        // const api = express.Router();
-        // app.use("/api", api);
-        // api.use("/units", unitsRouter);
         app.use("/api", apiRouters);
-
-
-        // app.get();
-        // app.post("/units", (req, res) => {
-        //     unitsCollection.insertOne(req.body)
-        //         .then(res => console.log(res))
-        //         .catch(err => console.log(err));
-        // });
 
         app.listen(5000, () => {
             console.log("listening on 5000 port");

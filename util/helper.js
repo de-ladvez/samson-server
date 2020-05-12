@@ -6,7 +6,6 @@ export const parseError = err => {
 export const dateshtampId = date => {
 
    let toFormatDate = new Date(parseInt(date));
-    // console.log(new Date())
    const year = date.slice(0, 4);
    const month = date.slice(4,6);
    const day = date.slice(6,8);
@@ -16,7 +15,6 @@ console.log(year, " ",  month, " ", day);
        .setFullYear(year, month, day);
    dateId
        .setHours(0, 0, 0, 0);
-    // console.log(dateId)
 
     return dateId.getTime();
 };
