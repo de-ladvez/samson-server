@@ -1,5 +1,5 @@
 export const {
-    PORT = 5000,
+    PORT = 80,
     // NODE_ENV = 'development',
     // SESS_NAME = 'sid',
     // SESS_SECRET = 'secret!session',
