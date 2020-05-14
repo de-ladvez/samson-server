@@ -5,7 +5,7 @@ import {apiRouters} from "./routers"
 const express = require('express');
 const bodyParser = require("body-parser");
 import {unitsRouter} from "./routers/units"
-import {MONGO_URI} from "./config";
+import {MONGO_URI, PORT} from "./config";
 import mongoose from "mongoose";
 
 
@@ -32,8 +32,8 @@ import mongoose from "mongoose";
         app.use(express.json());
         app.use("/api", apiRouters);
 
-        app.listen(5000, () => {
-            console.log("listening on 5000 port");
+        app.listen(PORT, () => {
+            console.log(`listening on ${PORT} port`);
         });
     } catch (err) {
         console.error(err);
