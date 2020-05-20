@@ -48,8 +48,8 @@ let localStart = dateFormat(date.setDate(date.getDate() - dayCount), "yyyymmddHH
                                     await
                                         resData.push({timeshtamp: i, data: [...prepaireData[i]]})
                                 }
-                                SensorModel(item.unitnumber).insertMany(resData, {
-                                    ordered: false
+                                await SensorModel(item.unitnumber).create(resData, (r)=> {
+                                    console.log(r)
                                 });
                                 log.info('ok ',item.unitnumber,'----------- ', new Date().toJSON());
 
@@ -72,6 +72,6 @@ let localStart = dateFormat(date.setDate(date.getDate() - dayCount), "yyyymmddHH
             log.info('error', ' -- ', err, ' -- ', new Date().toJSON());
         });
 
+    let connTime = setTimeout(()=> {mongoose.connection.close();clearTimeout(connTime);}, 120000);
 
-    mongoose.connection.close();
 })();
