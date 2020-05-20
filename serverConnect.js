@@ -1,12 +1,9 @@
-// import db from "./connectDB";
 import {header} from "./header";
 import {apiRouters} from "./routers"
-
-const express = require('express');
-const bodyParser = require("body-parser");
-import {unitsRouter} from "./routers/units"
 import {MONGO_URI, PORT} from "./config";
 import mongoose from "mongoose";
+const express = require('express');
+const bodyParser = require("body-parser");
 
 
 (async () => {
@@ -14,13 +11,11 @@ import mongoose from "mongoose";
         await mongoose.connect(MONGO_URI, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
-            useCreateIndex: true
+            useCreateIndex: true,
+            useFindAndModify: false
         });
         console.log("conection to bd");
         const app = express();
-        // const {
-        //     unitsCollection
-        // } = res;
 
         app.use(bodyParser.json());
 

@@ -7,13 +7,15 @@ import Joi from "@hapi/joi";
 const sensorRuter = express.Router();
 
 sensorRuter.post("", async (req, res) => {
+    console.log("123")
+
     try {
         let resData = [];
         const arr = req.body;
         await Joi.validate({...arr}, sensorRow);
         const unitnumber = arr.unitnumber;
-        const prepaireData = arr.data.reduce((acum, item) => {
 
+        const prepaireData = arr.data.reduce((acum, item) => {
             const timeshtamp = item.datetime_actual.slice(0, 8) + "000000";
             if (!acum[timeshtamp]) {
                 acum[timeshtamp] = [];
@@ -21,7 +23,6 @@ sensorRuter.post("", async (req, res) => {
             acum[timeshtamp].push(item);
             return acum;
         }, {});
-
         for (let i in prepaireData) {
             await resData.push({timeshtamp: i, data: [...prepaireData[i]]})
         }
