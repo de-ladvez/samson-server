@@ -3,15 +3,18 @@ import {dinamicModel} from "../util/dinamicModel";
 
 const RecordSchema = mongoose.Schema({
     altitude: String,
-    datetime_actual: String,
+    datetime_actual: {
+        type: String,
+        unique: true
+    },
     datetime_utc: String,
-    door: String,
-    emergency: String,
-    gps_connected: String,
+    door: Number,
+    emergency: Number,
+    gps_connected: Number,
     gps_valid: String, //? "1"
     heading: String, //? "0"
     latitude: String,
-    light: String,
+    light: Number,
     longitude: String,
     main_voltage: String,
     mileage: String,
@@ -20,17 +23,9 @@ const RecordSchema = mongoose.Schema({
     rpm: Number, //? 0
     satellites: String, //? "0"
     software_version: String,
-    temperature_ext: String,
+    temperature_ext: Number,
     velocity: String
 });
 
-const SensorShema = mongoose.Schema({
-    timeshtamp: {
-        type: String,
-        unique: true
-    },
-    data: {type: [RecordSchema]}
-});
-
-export const SensorModel = (collectionName) => dinamicModel(collectionName, SensorShema, "_unit_sensors");
+export const RecordSensorSchema = (collectionName) => dinamicModel(collectionName, RecordSchema, "_unit_sensors");
 

@@ -43,6 +43,9 @@ export const getSensor = Joi.object().keys({
     end
 });
 
+ export const getSensorFilter = Joi.object().keys({
+     unitnumber
+ });
 // export const sensor = Joi.object().keys({
 //     datetime_actual,
 //     altitude,

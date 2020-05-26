@@ -3,7 +3,8 @@ import dateFormat from "dateformat";
 import {parseError} from "../util/helper";
 import {MONGO_URI, PORT} from "../config";
 import mongoose from "mongoose";
-import {SensorModel} from "../models/sensorUnits";
+// import {SensorModel} from "../models/sensorUnits";
+import {RecordSensorSchema} from "../models/sensorItem";
 
 mongoose.connect(MONGO_URI, {
     useUnifiedTopology: true,
@@ -11,12 +12,12 @@ mongoose.connect(MONGO_URI, {
     useCreateIndex: true
 });
 
-const unitnumber = "378272";
-const dayCount = 6;
+const unitnumber = "378286";
+const dayCount = 10;
 
 let year = 2020;
 let month = 4;
-let day = 18;
+let day = 26;
 
 let date = new Date();
 date.setFullYear(year, month, day);
@@ -31,20 +32,26 @@ setInterval(() => {
             console.log(localStart);
             console.log(arr.length);
             try {
-                let resData = [];
-                const prepaireData = arr.data.reduce((acum, item) => {
-                    const timeshtamp = item.datetime_actual.slice(0, 8) + "000000";
-                    if (!acum[timeshtamp]) {
-                        acum[timeshtamp] = [];
-                    }
-                    acum[timeshtamp].push(item);
-                    return acum;
-                }, {});
-                for (let i in prepaireData) {
-                    await resData.push({timeshtamp: i, data: [...prepaireData[i]]})
-                }
-
-                SensorModel(unitnumber).insertMany(resData, {
+                // let resData = [];
+                // const prepaireData = arr.reduce((acum, item) => {
+                //     const timeshtamp = item.datetime_actual.slice(0, 8) + "000000";
+                //     if (!acum[timeshtamp]) {
+                //         acum[timeshtamp] = [];
+                //     }
+                //     acum[timeshtamp].push(item);
+                //     return acum;
+                // }, {});
+                // for (let i in prepaireData) {
+                //     await resData.push({timeshtamp: i, data: [...prepaireData[i]]})
+                // }
+                // const copySensorModel = SensorModel(unitnumber);
+                // const exSensorModel = new copySensorModel(resData[0]);
+                // console.log(resData[0].data)
+                // exSensorModel.data.push(resData.data[0])
+                // console.log(exSensorModel)
+                // exSensorModel.save();
+                //
+                RecordSensorSchema(unitnumber).insertMany(arr, {
                     ordered: false
                 });
 
@@ -55,4 +62,4 @@ setInterval(() => {
                 console.log(parseError(e));
             }
         });
-}, 10000);
+}, 5000);
